@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../src/dtos/auth.dto.ts"],"sourcesContent":["import { IsEmail } from 'class-validator';\r\n\r\nexport class PresignUpDto {\r\n  @IsEmail()\r\n  public email: string;\r\n}\r\n"],"names":["PresignUpDto","IsEmail"],"mappings":"AAAA;;;;+BAEaA;;aAAAA;;gCAFW;;;;;;;;;;AAEjB,IAAA,AAAMA,eAAN,MAAMA;AAGb;;IAFGC,IAAAA,uBAAO;;GADGD"}
+{"version":3,"file":"auth.dto.js","sourceRoot":"","sources":["../../src/dtos/auth.dto.ts"],"names":[],"mappings":";;;;AAAA,qDAA0C;AAE1C,MAAa,YAAY;CAGxB;AAFC;IAAC,IAAA,yBAAO,GAAE;;2CACW;AAFvB,oCAGC"}

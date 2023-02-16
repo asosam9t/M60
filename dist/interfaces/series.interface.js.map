@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../src/interfaces/series.interface.ts"],"sourcesContent":["import { Types } from 'mongoose';\r\n\r\nexport interface Series {\r\n  category: Types.ObjectId;\r\n  title: string;\r\n  description: string;\r\n}\r\n"],"names":[],"mappings":"AAAA"}
+{"version":3,"file":"series.interface.js","sourceRoot":"","sources":["../../src/interfaces/series.interface.ts"],"names":[],"mappings":""}
