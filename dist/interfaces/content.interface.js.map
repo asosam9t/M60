@@ -1,1 +1,1 @@
-{"version":3,"file":"content.interface.js","sourceRoot":"","sources":["../../src/interfaces/content.interface.ts"],"names":[],"mappings":""}
+{"version":3,"sources":["../../src/interfaces/content.interface.ts"],"sourcesContent":["import { Types } from 'mongoose';\r\n\r\nexport interface Content {\r\n  title: string;\r\n  description: string;\r\n  thumbnail: string;\r\n  video: string;\r\n}\r\n"],"names":[],"mappings":"AAAA"}

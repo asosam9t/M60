@@ -1,51 +1,87 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const HttpException_1 = require("@exceptions/HttpException");
-const util_1 = require("@utils/util");
-const content_model_1 = tslib_1.__importDefault(require("@/models/content.model"));
-const cloudinary_service_1 = tslib_1.__importDefault(require("./cloudinary.service"));
-class ContentService {
-    constructor() {
-        this.content = content_model_1.default;
-        this.cloudinary = new cloudinary_service_1.default();
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "default", {
+    enumerable: true,
+    get: ()=>_default
+});
+const _httpException = require("../exceptions/HttpException");
+const _util = require("../utils/util");
+const _contentModel = _interopRequireDefault(require("../models/content.model"));
+const _cloudinaryService = _interopRequireDefault(require("./cloudinary.service"));
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
     }
-    async createContent(contentData) {
-        var _a;
-        if ((0, util_1.isEmpty)(contentData))
-            throw new HttpException_1.HttpException(400, 'Content data is empty');
-        try {
-            const content = await this.content.create(Object.assign({}, contentData));
-            return content;
+    return obj;
+}
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+function _objectSpread(target) {
+    for(var i = 1; i < arguments.length; i++){
+        var source = arguments[i] != null ? arguments[i] : {};
+        var ownKeys = Object.keys(source);
+        if (typeof Object.getOwnPropertySymbols === 'function') {
+            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+                return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+            }));
         }
-        catch (error) {
-            throw new HttpException_1.HttpException(409, (_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : 'Error creating content');
+        ownKeys.forEach(function(key) {
+            _defineProperty(target, key, source[key]);
+        });
+    }
+    return target;
+}
+let ContentService = class ContentService {
+    async createContent(contentData) {
+        if ((0, _util.isEmpty)(contentData)) throw new _httpException.HttpException(400, 'Content data is empty');
+        try {
+            const content = await this.content.create(_objectSpread({}, contentData));
+            return content;
+        } catch (error) {
+            var ref;
+            throw new _httpException.HttpException(409, (ref = error === null || error === void 0 ? void 0 : error.message) !== null && ref !== void 0 ? ref : 'Error creating content');
         }
     }
     async getAllContent() {
-        var _a;
         try {
-            const content = await this.content.find().sort({ createdAt: -1 });
+            const content = await this.content.find().sort({
+                createdAt: -1
+            });
             return content;
-        }
-        catch (error) {
-            throw new HttpException_1.HttpException(409, (_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : 'Error fetching content');
+        } catch (error) {
+            var ref;
+            throw new _httpException.HttpException(409, (ref = error === null || error === void 0 ? void 0 : error.message) !== null && ref !== void 0 ? ref : 'Error fetching content');
         }
     }
     async deleteContent(id) {
-        var _a;
         try {
-            //delete video and thumbnail from cloudinary
             const contentM = await this.content.findById(id);
             await this.cloudinary.deleteVideo(contentM.video);
             await this.cloudinary.deleteVideo(contentM.thumbnail);
             const content = await this.content.findByIdAndDelete(id);
             return content;
-        }
-        catch (error) {
-            throw new HttpException_1.HttpException(409, (_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : 'Error deleting content');
+        } catch (error) {
+            var ref;
+            throw new _httpException.HttpException(409, (ref = error === null || error === void 0 ? void 0 : error.message) !== null && ref !== void 0 ? ref : 'Error deleting content');
         }
     }
-}
-exports.default = ContentService;
+    constructor(){
+        this.content = _contentModel.default;
+        this.cloudinary = new _cloudinaryService.default();
+    }
+};
+const _default = ContentService;
+
 //# sourceMappingURL=content.service.js.map

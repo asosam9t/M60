@@ -1,33 +1,42 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const form_data_1 = tslib_1.__importDefault(require("form-data"));
-const mailgun_js_1 = tslib_1.__importDefault(require("mailgun.js"));
-const _config_1 = require("@config");
-const mailgun = new mailgun_js_1.default(form_data_1.default);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "default", {
+    enumerable: true,
+    get: ()=>_default
+});
+const _formData = _interopRequireDefault(require("form-data"));
+const _mailgunJs = _interopRequireDefault(require("mailgun.js"));
+const _config = require("../config");
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+const mailgun = new _mailgunJs.default(_formData.default);
 const mg = mailgun.client({
     username: 'api',
-    key: _config_1.MAILGUN_SECRET,
+    key: _config.MAILGUN_SECRET
 });
-class MailService {
-    constructor() {
-        this.mg = mg;
-    }
+let MailService = class MailService {
     async sendMail(subject, html, data) {
         const response = await mg.messages.create('mg.tialala.com', {
             from: 'emmanuelnwanochie247@gmail.com',
             to: data.email,
             subject: subject,
-            html: html,
+            html: html
         });
-        // logs any error
         if (response.message === 'Queued. Thank you.') {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
-}
-exports.default = MailService;
+    constructor(){
+        this.mg = mg;
+    }
+};
+const _default = MailService;
+
 //# sourceMappingURL=mail.service.js.map

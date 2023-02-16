@@ -1,16 +1,19 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const cloudinary = require('cloudinary').v2;
-const config_1 = require("@/config");
-const cloud = cloudinary.config({
-    cloud_name: config_1.CLOUDINARY_CLOUD_NAME,
-    api_key: config_1.CLOUDINARY_API_KEY,
-    api_secret: config_1.CLOUDINARY_API_SECRET,
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
-class CloudinaryService {
-    constructor() {
-        this.cloudinary = cloud;
-    }
+Object.defineProperty(exports, "default", {
+    enumerable: true,
+    get: ()=>_default
+});
+const _config = require("../config");
+const cloudinary = require('cloudinary').v2;
+const cloud = cloudinary.config({
+    cloud_name: _config.CLOUDINARY_CLOUD_NAME,
+    api_key: _config.CLOUDINARY_API_KEY,
+    api_secret: _config.CLOUDINARY_API_SECRET
+});
+let CloudinaryService = class CloudinaryService {
     async uploadVideo(file, thumbNail) {
         try {
             const savedVideo = await cloudinary.uploader.upload(file.path, {
@@ -22,51 +25,55 @@ class CloudinaryService {
                         width: 300,
                         height: 300,
                         crop: 'pad',
-                        audio_codec: 'none',
+                        audio_codec: 'none'
                     },
                     {
                         width: 160,
                         height: 100,
                         crop: 'crop',
                         gravity: 'south',
-                        audio_codec: 'none',
-                    },
+                        audio_codec: 'none'
+                    }
                 ],
                 eager_async: true,
                 use_filename: true,
-                unique_filename: false,
+                unique_filename: false
             });
             const savedThumb = await cloudinary.uploader.upload(thumbNail.path, {
                 folder: 'thumbnails',
                 resource_type: 'image',
                 use_filename: true,
-                unique_filename: false,
+                unique_filename: false
             });
-            return { savedVideo, savedThumb };
-        }
-        catch (error) {
+            return {
+                savedVideo,
+                savedThumb
+            };
+        } catch (error) {
             return error;
         }
     }
     async deleteVideo(public_id) {
         try {
             await cloudinary.uploader.destroy(public_id);
-        }
-        catch (error) {
+        } catch (error) {
             return error;
         }
     }
-    // upload only image
     async uploadImage(image_file, folder) {
         const savedThumb = await cloudinary.uploader.upload(image_file.path, {
             folder: folder,
             resource_type: 'image',
             use_filename: true,
-            unique_filename: false,
+            unique_filename: false
         });
         console.log(savedThumb);
         return savedThumb;
     }
-}
-exports.default = CloudinaryService;
+    constructor(){
+        this.cloudinary = cloud;
+    }
+};
+const _default = CloudinaryService;
+
 //# sourceMappingURL=cloudinary.service.js.map

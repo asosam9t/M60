@@ -1,1 +1,1 @@
-{"version":3,"file":"category.dto.js","sourceRoot":"","sources":["../../src/dtos/category.dto.ts"],"names":[],"mappings":";;;;AAAA,qDAA2C;AAE3C,MAAa,WAAW;CAGvB;AAFC;IAAC,IAAA,0BAAQ,GAAE;;yCACS;AAFtB,kCAGC"}
+{"version":3,"sources":["../../src/dtos/category.dto.ts"],"sourcesContent":["import { IsString } from 'class-validator';\r\n\r\nexport class CategoryDto {\r\n  @IsString()\r\n  public name: string;\r\n}\r\n"],"names":["CategoryDto","IsString"],"mappings":"AAAA;;;;+BAEaA;;aAAAA;;gCAFY;;;;;;;;;;AAElB,IAAA,AAAMA,cAAN,MAAMA;AAGb;;IAFGC,IAAAA,wBAAQ;;GADED"}
