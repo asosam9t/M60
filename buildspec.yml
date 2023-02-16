@@ -9,7 +9,7 @@ phases:
       - npm install
   build:
     commands:
-      - tsc
+      - swc src -d dist --source-maps --copy-files
 
 artifacts:
   files:
