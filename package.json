@@ -5,7 +5,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "npx pm2 kill && npx pm2 start ecosystem.config.js --only dev",
+    "start": "node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
     "restartpm2wihtcrossenv": "cross-env NODE_ENV=development pm2 restart backend",
     "restart": "sudo pm2 restart backend",
