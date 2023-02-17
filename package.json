@@ -4,6 +4,9 @@
   "description": "TypeScript + Mongoose + MongoDB + Express API Server",
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "16.16.0"
+  },
   "scripts": {
     "start": "node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
@@ -17,6 +20,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "aws-sdk": "^2.1317.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.1",
