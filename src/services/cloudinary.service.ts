@@ -56,14 +56,13 @@ class CloudinaryService {
   }
 
   // upload only image
-  public async uploadImage(image_file: any, folder: string): Promise<any> {
+  public async uploadImage(image_file: any): Promise<any> {
     const savedThumb = await cloudinary.uploader.upload(image_file.path, {
-      folder: folder,
+      folder: 'thumbnails',
       resource_type: 'image',
       use_filename: true,
       unique_filename: false,
     });
-    console.log(savedThumb);
     return savedThumb;
   }
 }

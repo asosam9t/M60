@@ -19,6 +19,17 @@ class ContentService {
     }
   }
 
+  public async editContent(id: string, contentData: any): Promise<Content> {
+    if (isEmpty(contentData)) throw new HttpException(400, 'Content data is empty');
+
+    try {
+      const content = await this.content.findOneAndUpdate({ _id: id }, { ...contentData }, { new: true });
+      return content;
+    } catch (error) {
+      throw new HttpException(409, error?.message ?? 'Error editing content');
+    }
+  }
+
   public async getAllContent(): Promise<Content[]> {
     try {
       const content: Content[] = await this.content.find().sort({ createdAt: -1 });

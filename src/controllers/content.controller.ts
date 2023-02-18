@@ -34,6 +34,36 @@ class ContentController {
     }
   };
 
+  public editContent = async (req: any, res: Response, next: NextFunction) => {
+    try {
+      const admin = await this.users.findOne({ _id: req.user._id });
+
+      if (!admin) throw new HttpException(404, 'Unauthorized');
+
+      if (admin.email !== 'sales@faithudo.com') throw new HttpException(404, 'Unauthorized');
+      const { thumbnail } = req.files;
+
+      const { id } = req.params;
+
+      if (thumbnail) {
+        const savedThumb: any = await this.cloudinary.uploadImage(thumbnail[0]);
+        const content = await this.contentService.editContent(id, {
+          thumbnail: savedThumb?.secure_url,
+          ...req.body,
+        });
+        res.status(200).json({ content, message: 'Content updated' });
+      } else {
+        const content = await this.contentService.editContent(id, {
+          thumbnail: req.body.thumbnail,
+          ...req.body,
+        });
+        res.status(200).json({ content });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getAllContent = async (req: any, res: Response, next: NextFunction) => {
     try {
       const content = await this.contentService.getAllContent();

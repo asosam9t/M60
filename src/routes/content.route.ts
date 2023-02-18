@@ -28,6 +28,8 @@ class ContentRoute implements Routes {
       this.contentController.uploadSingle,
     );
 
+    this.router.patch(`${this.path}:id`, authMiddleware, upload.fields([{ name: 'thumbnail' }]), this.contentController.editContent);
+
     this.router.get(`${this.path}`, this.contentController.getAllContent);
     this.router.delete(`${this.path}:id`, authMiddleware, this.contentController.deleteContent);
   }
