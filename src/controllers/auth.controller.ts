@@ -79,6 +79,27 @@ class AuthController {
       next(error);
     }
   };
+
+  public reject = async (req: any, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    try {
+      const admin = await this.users.findOne({ _id: req.user._id });
+
+      if (!admin) throw new HttpException(404, 'Unauthorized');
+
+      if (admin.email !== 'sales@faithudo.com') throw new HttpException(404, 'Unauthorized');
+      const usermain = await this.users.findOne({ _id: id });
+
+      if (!usermain) throw new Error('User not found');
+
+      const user = await this.users.findOneAndUpdate({ _id: id }, { status: 'inactive' }, { new: true });
+
+      res.status(200).json({ status: 'success', user, message: 'User Data Fetched' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

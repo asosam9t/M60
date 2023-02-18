@@ -23,6 +23,7 @@ class AuthRoute implements Routes {
     this.router.get(`${this.path}users`, authMiddleware, this.authController.getUsers);
     this.router.get(`${this.path}users/inactive`, authMiddleware, this.authController.getInactiveUsers);
     this.router.patch(`${this.path}user/:id`, authMiddleware, this.authController.updateUser);
+    this.router.patch(`${this.path}user/reject/:id`, authMiddleware, this.authController.reject);
   }
 }
 
