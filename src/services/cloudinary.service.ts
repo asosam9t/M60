@@ -12,7 +12,7 @@ class CloudinaryService {
 
   public async uploadVideo(file: any, thumbNail: any): Promise<any> {
     try {
-      const savedVideo = await cloudinary.uploader.upload_large(file.path, {
+      const savedVideo = await cloudinary.uploader.upload(file.path, {
         resource_type: 'video',
         chunk_size: 600000000,
         folder: 'videos',
@@ -42,6 +42,7 @@ class CloudinaryService {
         unique_filename: false,
       });
 
+      console.log(savedVideo, savedThumb);
       return { savedVideo, savedThumb };
     } catch (error) {
       return error;

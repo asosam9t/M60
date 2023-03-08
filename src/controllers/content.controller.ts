@@ -21,6 +21,8 @@ class ContentController {
 
       const { savedVideo, savedThumb }: any = await this.cloudinary.uploadVideo(video[0], thumbnail[0]);
 
+      if (!savedVideo?.secure_url || !savedThumb?.secure_url) res.status(400).json({ message: 'Upload failed', savedVideo, savedThumb });
+
       const content = await this.contentService.createContent({
         video: savedVideo?.secure_url,
         thumbnail: savedThumb?.secure_url,
