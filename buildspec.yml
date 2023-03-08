@@ -1,0 +1,16 @@
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+    commands:
+      - npm install --only=dev
+      - npm install 
+  build:
+    commands:
+      - npm run build
+artifacts:
+  files:
+    - package.json
+    - package-lock.json
+    - dist/**/*
+  discard-paths: yes
